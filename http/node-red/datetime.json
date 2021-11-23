@@ -1,0 +1,57 @@
+[
+    {
+        "id": "704b5fda2b65de1d",
+        "type": "tab",
+        "label": "DateTime - HTTP",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2d638ade438fd323",
+        "type": "http in",
+        "z": "704b5fda2b65de1d",
+        "name": "",
+        "url": "/datetime",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 120,
+        "wires": [
+            [
+                "59a1550f0a84be8b"
+            ]
+        ]
+    },
+    {
+        "id": "59a1550f0a84be8b",
+        "type": "function",
+        "z": "704b5fda2b65de1d",
+        "name": "",
+        "func": "msg.payload = {\n  \"date\": new Date().toLocaleDateString('en-GB', { timeZone: 'Europe/Athens' }),\n  \"time\": new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/Athens' }),\n  \"timezone\": \"Europe/Athens\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 120,
+        "wires": [
+            [
+                "d991a3c44be2eba2"
+            ]
+        ]
+    },
+    {
+        "id": "d991a3c44be2eba2",
+        "type": "http response",
+        "z": "704b5fda2b65de1d",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 520,
+        "y": 120,
+        "wires": []
+    }
+]

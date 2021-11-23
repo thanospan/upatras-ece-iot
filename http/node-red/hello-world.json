@@ -1,0 +1,74 @@
+[
+    {
+        "id": "1027c77b1ac2a377",
+        "type": "tab",
+        "label": "Hello World - HTTP",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5ed6882dc08c51a7",
+        "type": "http in",
+        "z": "1027c77b1ac2a377",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 140,
+        "wires": [
+            [
+                "d7fb356caff47cd2"
+            ]
+        ]
+    },
+    {
+        "id": "d7fb356caff47cd2",
+        "type": "template",
+        "z": "1027c77b1ac2a377",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Hello, World!</title>\n  </head>\n  <body>\n    <h1>Hello, World!</h1>\n  </body>\n</html>",
+        "output": "str",
+        "x": 370,
+        "y": 140,
+        "wires": [
+            [
+                "aba80f773940bb42",
+                "825baf2b22217197"
+            ]
+        ]
+    },
+    {
+        "id": "825baf2b22217197",
+        "type": "debug",
+        "z": "1027c77b1ac2a377",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "aba80f773940bb42",
+        "type": "http response",
+        "z": "1027c77b1ac2a377",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 560,
+        "y": 140,
+        "wires": []
+    }
+]
