@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  mongo:
+    image: mongo:4.4
+    container_name: iot-mongo
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+  orion:
+    image: fiware/orion:3.3.1
+    container_name: iot-orion
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    ports:
+      - 1026:1026
+    command: -dbhost mongo
+  mosquitto:
+    image: eclipse-mosquitto:2.0.14
+    container_name: iot-mosquitto
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - ./config/eclipse-mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+  node-red:
+    image: nodered/node-red:2.1.3
+    container_name: iot-node-red
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Athens
+    ports:
+      - 1880:1880
+    volumes:
+      - node-red-data:/data
+
+volumes:
+  node-red-data:
+    name: iot-node-red-data
+
+networks:
+  default:
+    name: iot
