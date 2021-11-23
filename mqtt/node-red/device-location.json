@@ -1,0 +1,196 @@
+[
+    {
+        "id": "035f8157ebe55409",
+        "type": "tab",
+        "label": "Device Location - MQTT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c9e44f546614278c",
+        "type": "mqtt in",
+        "z": "035f8157ebe55409",
+        "name": "",
+        "topic": "device/location",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "3ce1c66091c1886d",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 260,
+        "wires": [
+            [
+                "7d36329836b0c67d"
+            ]
+        ]
+    },
+    {
+        "id": "7d36329836b0c67d",
+        "type": "function",
+        "z": "035f8157ebe55409",
+        "name": "",
+        "func": "msg.payload = {\n    \"name\": msg.payload.name,\n    \"lat\": msg.payload.location.latitude,\n    \"lon\": msg.payload.location.longitude\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 260,
+        "wires": [
+            [
+                "5cec2a98da978743",
+                "ef0164fa4930addc"
+            ]
+        ]
+    },
+    {
+        "id": "ef0164fa4930addc",
+        "type": "debug",
+        "z": "035f8157ebe55409",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e7623087f2546734",
+        "type": "inject",
+        "z": "035f8157ebe55409",
+        "name": "Device",
+        "props": [],
+        "repeat": "15",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "0280d0281d854a86"
+            ]
+        ]
+    },
+    {
+        "id": "0280d0281d854a86",
+        "type": "function",
+        "z": "035f8157ebe55409",
+        "name": "",
+        "func": "function getRandomCoords(center, radius) {\n  const radiusInDeg = (radius / 111320);\n\n  const r = radiusInDeg * Math.sqrt(Math.random());\n  const t = 2 * Math.PI * Math.random();\n\n  const lat = r * Math.sin(t);\n  const long = (r * Math.cos(t)) / Math.cos(center.lat * Math.PI / 180);\n\n  return { latitude: +(center.lat + lat).toFixed(6), longitude: +(center.long + long).toFixed(6) };\n}\n\nmsg.payload = {\n  \"name\": \"Device\",\n  \"location\": getRandomCoords({ lat: 38.241997, long: 21.742386 }, 2000)\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 100,
+        "wires": [
+            [
+                "86f7c1dd9398705a"
+            ]
+        ]
+    },
+    {
+        "id": "86f7c1dd9398705a",
+        "type": "mqtt out",
+        "z": "035f8157ebe55409",
+        "name": "",
+        "topic": "device/location",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3ce1c66091c1886d",
+        "x": 520,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "84e711b3b0dbdcf5",
+        "type": "worldmap",
+        "z": "035f8157ebe55409",
+        "name": "",
+        "lat": "38.241997",
+        "lon": "21.742386",
+        "zoom": "14",
+        "layer": "OSMC",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "",
+        "maplist": "OSMC",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 520,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "5cec2a98da978743",
+        "type": "worldmap-tracks",
+        "z": "035f8157ebe55409",
+        "name": "",
+        "depth": "36000",
+        "layer": "combined",
+        "smooth": false,
+        "x": 510,
+        "y": 260,
+        "wires": [
+            [
+                "84e711b3b0dbdcf5"
+            ]
+        ]
+    },
+    {
+        "id": "3ce1c66091c1886d",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mosquitto",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    }
+]
