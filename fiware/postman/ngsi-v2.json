@@ -1,0 +1,321 @@
+{
+  "info": {
+    "_postman_id": "ea273efb-b3dd-4c51-8ad2-8dd17e10d46d",
+    "name": "FIWARE NGSI-v2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "/entities",
+      "item": [
+        {
+          "name": "/entities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{orion}}/v2/entities",
+              "protocol": "http",
+              "host": [
+                "{{orion}}"
+              ],
+              "path": [
+                "v2",
+                "entities"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/entities",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": \"urn:ngsi-ld:Store:001\",\n    \"type\": \"Store\",\n    \"email\": {\n        \"type\": \"Text\",\n        \"value\": \"store1@example.com\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{orion}}/v2/entities",
+              "protocol": "http",
+              "host": [
+                "{{orion}}"
+              ],
+              "path": [
+                "v2",
+                "entities"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/entities/:entityId/attrs/:attrName",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "text/plain",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "\"store001@example.com\"",
+              "options": {
+                "raw": {
+                  "language": "text"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{orion}}/v2/entities/:entityId/attrs/:attrName/value",
+              "protocol": "http",
+              "host": [
+                "{{orion}}"
+              ],
+              "path": [
+                "v2",
+                "entities",
+                ":entityId",
+                "attrs",
+                ":attrName",
+                "value"
+              ],
+              "variable": [
+                {
+                  "key": "entityId",
+                  "value": "urn:ngsi-ld:Store:001"
+                },
+                {
+                  "key": "attrName",
+                  "value": "email"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/entities",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://{{orion}}/v2/entities/:entityId",
+              "protocol": "http",
+              "host": [
+                "{{orion}}"
+              ],
+              "path": [
+                "v2",
+                "entities",
+                ":entityId"
+              ],
+              "variable": [
+                {
+                  "key": "entityId",
+                  "value": "urn:ngsi-ld:Store:001"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "/registrations",
+      "item": [
+        {
+          "name": "/registrations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{orion}}/v2/registrations",
+              "protocol": "http",
+              "host": [
+                "{{orion}}"
+              ],
+              "path": [
+                "v2",
+                "registrations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/registrations",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n   \"description\": \"Get environmental data for Store 1\",\n   \"dataProvided\": {\n     \"entities\": [\n       {\n         \"id\" : \"urn:ngsi-ld:Store:001\",\n         \"type\": \"Store\"\n       }\n     ],\n     \"attrs\": [\n      \"temperature\",\n      \"humidity\"\n    ]\n   },\n   \"provider\": {\n     \"http\": {\n       \"url\": \"http://{{context-provider}}/env\"\n     },\n     \"legacyForwarding\": false\n   },\n   \"status\": \"active\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{orion}}/v2/registrations",
+              "protocol": "http",
+              "host": [
+                "{{orion}}"
+              ],
+              "path": [
+                "v2",
+                "registrations"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/registrations",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://{{orion}}/v2/registrations/:registrationId",
+              "protocol": "http",
+              "host": [
+                "{{orion}}"
+              ],
+              "path": [
+                "v2",
+                "registrations",
+                ":registrationId"
+              ],
+              "variable": [
+                {
+                  "key": "registrationId",
+                  "value": "61a2c94ac23dd720d428dfbc"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "/subscriptions",
+      "item": [
+        {
+          "name": "/subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://{{orion}}/v2/subscriptions",
+              "protocol": "http",
+              "host": [
+                "{{orion}}"
+              ],
+              "path": [
+                "v2",
+                "subscriptions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/subscriptions",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"description\": \"Notify me of email changes for Store 1\",\r\n  \"subject\": {\r\n    \"entities\": [\r\n      {\r\n        \"idPattern\": \".*\", \"type\": \"Store\"\r\n      }\r\n    ],\r\n     \"condition\": {\r\n      \"attrs\": [ \"email\" ]\r\n    }\r\n  },\r\n  \"notification\": {\r\n    \"http\": {\r\n      \"url\": \"http://{{context-provider}}/subscription/email-change\"\r\n    }\r\n  }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://{{orion}}/v2/subscriptions",
+              "protocol": "http",
+              "host": [
+                "{{orion}}"
+              ],
+              "path": [
+                "v2",
+                "subscriptions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/subscriptions",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://{{orion}}/v2/subscriptions/:subscriptionId",
+              "protocol": "http",
+              "host": [
+                "{{orion}}"
+              ],
+              "path": [
+                "v2",
+                "subscriptions",
+                ":subscriptionId"
+              ],
+              "variable": [
+                {
+                  "key": "subscriptionId",
+                  "value": "61a2c9afc23dd720d428dfbd"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "orion",
+      "value": "localhost:1026"
+    },
+    {
+      "key": "context-provider",
+      "value": "node-red:1880"
+    }
+  ]
+}
