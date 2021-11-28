@@ -16,7 +16,7 @@ Optional:
 git clone https://github.com/thanospan/upatras-ece-iot.git
 cd upatras-ece-iot
 git checkout fall-2021
-docker compose up
+docker compose --env-file ./config/env/.env up
 ```
 ```
 Node-RED: http://localhost:1880
