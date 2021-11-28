@@ -3,11 +3,12 @@
 ## Requirements
 
 * [Docker](https://docs.docker.com/engine/install/)
-* [Docker Compose V2](https://docs.docker.com/compose/cli-command/#installing-compose-v2) (Already installed with Docker Desktop)
+* [Docker Compose V2](https://docs.docker.com/compose/cli-command/#installing-compose-v2/) (Already installed with Docker Desktop)
 
 Optional:
+* [Worldmap Node-RED node](https://github.com/dceejay/RedMap/)
 * [Python](https://www.python.org/downloads/)
-* [paho-mqtt](https://pypi.org/project/paho-mqtt/)
+* [Eclipse Paho MQTT Python client](https://github.com/eclipse/paho.mqtt.python/)
 * [Postman](https://www.postman.com/downloads/)
 
 ## Usage
