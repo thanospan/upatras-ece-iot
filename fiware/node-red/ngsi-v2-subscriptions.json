@@ -1,0 +1,274 @@
+[
+    {
+        "id": "e9e426aca5ceb1f3",
+        "type": "tab",
+        "label": "NGSI v2 - Subscriptions",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "59464a33146bb32d",
+        "type": "http in",
+        "z": "e9e426aca5ceb1f3",
+        "name": "",
+        "url": "/subscription/email-change",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 210,
+        "y": 340,
+        "wires": [
+            [
+                "e37e29730774d90f"
+            ]
+        ]
+    },
+    {
+        "id": "e37e29730774d90f",
+        "type": "debug",
+        "z": "e9e426aca5ceb1f3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "215a85d239b64137",
+        "type": "inject",
+        "z": "e9e426aca5ceb1f3",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "str",
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "d0fb1bfe8260e8af"
+            ]
+        ]
+    },
+    {
+        "id": "d0fb1bfe8260e8af",
+        "type": "function",
+        "z": "e9e426aca5ceb1f3",
+        "name": "create entity",
+        "func": "msg.payload = {\n    \"id\": \"urn:ngsi-ld:Store:001\",\n    \"type\": \"Store\",\n    \"email\": {\n        \"type\": \"Text\",\n        \"value\": \"store1@example.com\"\n    }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 100,
+        "wires": [
+            [
+                "58130a353b786869"
+            ]
+        ]
+    },
+    {
+        "id": "58130a353b786869",
+        "type": "http request",
+        "z": "e9e426aca5ceb1f3",
+        "name": "POST /v2/entities",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/entities",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 490,
+        "y": 100,
+        "wires": [
+            [
+                "60a310c4dd344703"
+            ]
+        ]
+    },
+    {
+        "id": "60a310c4dd344703",
+        "type": "debug",
+        "z": "e9e426aca5ceb1f3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "b54f9d985a31d3f9",
+        "type": "inject",
+        "z": "e9e426aca5ceb1f3",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "str",
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "f453fe5f272dc7e2"
+            ]
+        ]
+    },
+    {
+        "id": "f453fe5f272dc7e2",
+        "type": "function",
+        "z": "e9e426aca5ceb1f3",
+        "name": "create subscription",
+        "func": "msg.payload = {\n  \"description\": \"Notify me of email changes for Store 1\",\n  \"subject\": {\n    \"entities\": [\n      {\n        \"idPattern\": \".*\", \"type\": \"Store\"\n      }\n    ],\n     \"condition\": {\n      \"attrs\": [ \"email\" ]\n    }\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://node-red:1880/subscription/email-change\"\n    }\n  }\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 180,
+        "wires": [
+            [
+                "5e78ed38274b670a"
+            ]
+        ]
+    },
+    {
+        "id": "5e78ed38274b670a",
+        "type": "http request",
+        "z": "e9e426aca5ceb1f3",
+        "name": "POST /v2/subscriptions",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/subscriptions",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 550,
+        "y": 180,
+        "wires": [
+            [
+                "c359c877a048e7f3"
+            ]
+        ]
+    },
+    {
+        "id": "c359c877a048e7f3",
+        "type": "debug",
+        "z": "e9e426aca5ceb1f3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "a6b607255f9d8b60",
+        "type": "inject",
+        "z": "e9e426aca5ceb1f3",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "str",
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "04f589c3cfd9f7d4"
+            ]
+        ]
+    },
+    {
+        "id": "04f589c3cfd9f7d4",
+        "type": "function",
+        "z": "e9e426aca5ceb1f3",
+        "name": "update attribute value",
+        "func": "msg.headers = {};\nmsg.headers[\"Content-Type\"] = \"text/plain\";\n\nmsg.payload = '\"store001@example.com\"';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 260,
+        "wires": [
+            [
+                "36feba28a21d272a"
+            ]
+        ]
+    },
+    {
+        "id": "36feba28a21d272a",
+        "type": "http request",
+        "z": "e9e426aca5ceb1f3",
+        "name": "PUT /v2/entities/:entityId/attrs/:attrName/value",
+        "method": "PUT",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/entities/urn:ngsi-ld:Store:001/attrs/email/value",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 640,
+        "y": 260,
+        "wires": [
+            [
+                "0a0208b0768ec7fd"
+            ]
+        ]
+    },
+    {
+        "id": "0a0208b0768ec7fd",
+        "type": "debug",
+        "z": "e9e426aca5ceb1f3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 260,
+        "wires": []
+    }
+]

@@ -1,0 +1,228 @@
+[
+    {
+        "id": "446ecaac4569c01d",
+        "type": "tab",
+        "label": "NGSI v2 - Registrations",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "81e3d24441df7621",
+        "type": "http in",
+        "z": "446ecaac4569c01d",
+        "name": "",
+        "url": "/env/op/query",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 300,
+        "wires": [
+            [
+                "47ea2e43678c3af7"
+            ]
+        ]
+    },
+    {
+        "id": "052c1e79d9970e6f",
+        "type": "debug",
+        "z": "446ecaac4569c01d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "47ea2e43678c3af7",
+        "type": "function",
+        "z": "446ecaac4569c01d",
+        "name": "context provider",
+        "func": "const getRandomInt = (min, max) => {\n  min = Math.ceil(min);\n  max = Math.floor(max);\n  return Math.floor(Math.random() * (max - min + 1) + min); // Inclusive\n};\n\nmsg.payload = [\n    {\n    \"id\": msg.payload.entities[0].id,\n    \"type\": msg.payload.entities[0].type,\n    \"temperature\": {\n        \"type\": \"Number\",\n        \"value\": getRandomInt(-30, 50)\n    },\n    \"humidity\": {\n        \"type\": \"Number\",\n        \"value\": getRandomInt(10, 90)\n    }\n}]\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 300,
+        "wires": [
+            [
+                "052c1e79d9970e6f",
+                "f596964f1fe05f99"
+            ]
+        ]
+    },
+    {
+        "id": "f596964f1fe05f99",
+        "type": "http response",
+        "z": "446ecaac4569c01d",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 560,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "067cb90a6e310427",
+        "type": "inject",
+        "z": "446ecaac4569c01d",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "str",
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "a2c0912af68de3c3"
+            ]
+        ]
+    },
+    {
+        "id": "a2c0912af68de3c3",
+        "type": "function",
+        "z": "446ecaac4569c01d",
+        "name": "create registration",
+        "func": "msg.payload = {\n   \"description\": \"Get environmental data for Store 1\",\n   \"dataProvided\": {\n     \"entities\": [\n       {\n         \"id\" : \"urn:ngsi-ld:Store:001\",\n         \"type\": \"Store\"\n       }\n     ],\n     \"attrs\": [\n      \"temperature\",\n      \"humidity\"\n    ]\n   },\n   \"provider\": {\n     \"http\": {\n       \"url\": \"http://node-red:1880/env\"\n     },\n     \"legacyForwarding\": false\n   },\n   \"status\": \"active\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 310,
+        "y": 180,
+        "wires": [
+            [
+                "39b54e2a7c78209a"
+            ]
+        ]
+    },
+    {
+        "id": "39b54e2a7c78209a",
+        "type": "http request",
+        "z": "446ecaac4569c01d",
+        "name": "POST /v2/registrations",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/registrations",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "6f41071fb8ae4d40"
+            ]
+        ]
+    },
+    {
+        "id": "6f41071fb8ae4d40",
+        "type": "debug",
+        "z": "446ecaac4569c01d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f7b8b0f69e43cae4",
+        "type": "inject",
+        "z": "446ecaac4569c01d",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "str",
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "1c2c0a6a6605843e"
+            ]
+        ]
+    },
+    {
+        "id": "1c2c0a6a6605843e",
+        "type": "function",
+        "z": "446ecaac4569c01d",
+        "name": "create entity",
+        "func": "msg.payload = {\n    \"id\": \"urn:ngsi-ld:Store:001\",\n    \"type\": \"Store\",\n    \"email\": {\n        \"type\": \"Text\",\n        \"value\": \"store1@example.com\"\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 100,
+        "wires": [
+            [
+                "5f73b9578aedfed8"
+            ]
+        ]
+    },
+    {
+        "id": "5f73b9578aedfed8",
+        "type": "http request",
+        "z": "446ecaac4569c01d",
+        "name": "POST /v2/entities",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/entities",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 490,
+        "y": 100,
+        "wires": [
+            [
+                "68fc26e9dc8c0f12"
+            ]
+        ]
+    },
+    {
+        "id": "68fc26e9dc8c0f12",
+        "type": "debug",
+        "z": "446ecaac4569c01d",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 100,
+        "wires": []
+    }
+]
