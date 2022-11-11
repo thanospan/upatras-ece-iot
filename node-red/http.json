@@ -1,0 +1,712 @@
+[
+    {
+        "id": "482e4d4f409633b2",
+        "type": "tab",
+        "label": "Hello, World!",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "154077e628b66308",
+        "type": "tab",
+        "label": "DateTime",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "704b5fda2b65de1d",
+        "type": "tab",
+        "label": "Temperature (Auth)",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6095813f1011d415",
+        "type": "tab",
+        "label": "IoT Projects",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4534e5c23aafe101",
+        "type": "comment",
+        "z": "482e4d4f409633b2",
+        "name": "Server",
+        "info": "",
+        "x": 130,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "f3ccb837e02d16b3",
+        "type": "comment",
+        "z": "482e4d4f409633b2",
+        "name": "Client",
+        "info": "",
+        "x": 130,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "d5516ca7331e4ba7",
+        "type": "inject",
+        "z": "482e4d4f409633b2",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "671759b43aed8ff2"
+            ]
+        ]
+    },
+    {
+        "id": "671759b43aed8ff2",
+        "type": "http request",
+        "z": "482e4d4f409633b2",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:1880/hello",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 310,
+        "y": 340,
+        "wires": [
+            [
+                "28acbc5ac37e9930"
+            ]
+        ]
+    },
+    {
+        "id": "28acbc5ac37e9930",
+        "type": "debug",
+        "z": "482e4d4f409633b2",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "32c0ef1c24bfb4bb",
+        "type": "debug",
+        "z": "482e4d4f409633b2",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "c3905c59876ca0f7",
+        "type": "http in",
+        "z": "482e4d4f409633b2",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 160,
+        "wires": [
+            [
+                "2d62e0658fab2362"
+            ]
+        ]
+    },
+    {
+        "id": "2d62e0658fab2362",
+        "type": "template",
+        "z": "482e4d4f409633b2",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Hello, World!</title>\n  </head>\n  <body>\n    <h1>Hello, World!</h1>\n  </body>\n</html>",
+        "output": "str",
+        "x": 320,
+        "y": 160,
+        "wires": [
+            [
+                "0ab8f46c52908d9a",
+                "32c0ef1c24bfb4bb"
+            ]
+        ]
+    },
+    {
+        "id": "0ab8f46c52908d9a",
+        "type": "http response",
+        "z": "482e4d4f409633b2",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 500,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "fc73a06b0fa105bd",
+        "type": "http in",
+        "z": "154077e628b66308",
+        "name": "",
+        "url": "/datetime",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "58b864a939cc1bde"
+            ]
+        ]
+    },
+    {
+        "id": "58b864a939cc1bde",
+        "type": "function",
+        "z": "154077e628b66308",
+        "name": "",
+        "func": "msg.payload = {\n  \"date\": new Date().toLocaleDateString('en-GB', { timeZone: 'Europe/Athens' }),\n  \"time\": new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/Athens' }),\n  \"timezone\": \"Europe/Athens\"\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 160,
+        "wires": [
+            [
+                "4922aeaa2fcdd2e8",
+                "906ec2fc7fd3f278"
+            ]
+        ]
+    },
+    {
+        "id": "4922aeaa2fcdd2e8",
+        "type": "http response",
+        "z": "154077e628b66308",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 520,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "bd5ee94b6a07b28d",
+        "type": "comment",
+        "z": "154077e628b66308",
+        "name": "Server",
+        "info": "",
+        "x": 130,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "1550735e41c3b248",
+        "type": "comment",
+        "z": "154077e628b66308",
+        "name": "Client",
+        "info": "",
+        "x": 130,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "0af2f37de75bf9ca",
+        "type": "inject",
+        "z": "154077e628b66308",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "66c01d4c2b95fc7c"
+            ]
+        ]
+    },
+    {
+        "id": "66c01d4c2b95fc7c",
+        "type": "http request",
+        "z": "154077e628b66308",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:1880/datetime",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 310,
+        "y": 340,
+        "wires": [
+            [
+                "42fa6ddf9e863801"
+            ]
+        ]
+    },
+    {
+        "id": "42fa6ddf9e863801",
+        "type": "debug",
+        "z": "154077e628b66308",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "906ec2fc7fd3f278",
+        "type": "debug",
+        "z": "154077e628b66308",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "2d638ade438fd323",
+        "type": "http in",
+        "z": "704b5fda2b65de1d",
+        "name": "",
+        "url": "/temperature",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 160,
+        "wires": [
+            [
+                "59a1550f0a84be8b"
+            ]
+        ]
+    },
+    {
+        "id": "59a1550f0a84be8b",
+        "type": "function",
+        "z": "704b5fda2b65de1d",
+        "name": "",
+        "func": "msg.payload = \"Unauthorized\";\n\nif (msg.req.headers[\"token\"] === \"iot\") {\n  let min = -10\n  let max = 40;\n  let temp = Math.random() * (max - min) + min;\n  temp = Math.round(temp * 100) / 100;\n  msg.payload = {\n    \"temperature\": temp\n  }\n  return msg;\n}\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 160,
+        "wires": [
+            [
+                "d991a3c44be2eba2",
+                "70a2e4a687dc3e6b"
+            ]
+        ]
+    },
+    {
+        "id": "d991a3c44be2eba2",
+        "type": "http response",
+        "z": "704b5fda2b65de1d",
+        "name": "",
+        "statusCode": "200",
+        "headers": {},
+        "x": 540,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "18821fce6faa4067",
+        "type": "inject",
+        "z": "704b5fda2b65de1d",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 340,
+        "wires": [
+            [
+                "613b2a0ea5441ccb"
+            ]
+        ]
+    },
+    {
+        "id": "613b2a0ea5441ccb",
+        "type": "http request",
+        "z": "704b5fda2b65de1d",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://localhost:1880/temperature",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "other",
+                "keyValue": "token",
+                "valueType": "other",
+                "valueValue": "iot"
+            }
+        ],
+        "x": 310,
+        "y": 340,
+        "wires": [
+            [
+                "2af401da09313a72"
+            ]
+        ]
+    },
+    {
+        "id": "164167cfc96456db",
+        "type": "comment",
+        "z": "704b5fda2b65de1d",
+        "name": "Server",
+        "info": "",
+        "x": 130,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "c8c4be1c028b76f0",
+        "type": "comment",
+        "z": "704b5fda2b65de1d",
+        "name": "Client",
+        "info": "",
+        "x": 130,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "2af401da09313a72",
+        "type": "debug",
+        "z": "704b5fda2b65de1d",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "70a2e4a687dc3e6b",
+        "type": "debug",
+        "z": "704b5fda2b65de1d",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "c2224aa6d2791c2c",
+        "type": "inject",
+        "z": "6095813f1011d415",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 480,
+        "wires": [
+            [
+                "cdde1583ba627127"
+            ]
+        ]
+    },
+    {
+        "id": "5a13739bc6fc3721",
+        "type": "http request",
+        "z": "6095813f1011d415",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:1880/project",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 490,
+        "y": 480,
+        "wires": [
+            [
+                "8c5211d7e2bab0b1"
+            ]
+        ]
+    },
+    {
+        "id": "8c5211d7e2bab0b1",
+        "type": "debug",
+        "z": "6095813f1011d415",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "cfc0dbd87f96a6ed",
+        "type": "http in",
+        "z": "6095813f1011d415",
+        "name": "",
+        "url": "project",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "98517e103de37276"
+            ]
+        ]
+    },
+    {
+        "id": "98517e103de37276",
+        "type": "change",
+        "z": "6095813f1011d415",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "project",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 360,
+        "y": 160,
+        "wires": [
+            [
+                "9e4e14f612fdf3fb",
+                "0fb0e5f4098a7ba7"
+            ]
+        ]
+    },
+    {
+        "id": "9e4e14f612fdf3fb",
+        "type": "http response",
+        "z": "6095813f1011d415",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 550,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "66d7228d59335e11",
+        "type": "http in",
+        "z": "6095813f1011d415",
+        "name": "",
+        "url": "project",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "720dcc00dc6e1536"
+            ]
+        ]
+    },
+    {
+        "id": "720dcc00dc6e1536",
+        "type": "function",
+        "z": "6095813f1011d415",
+        "name": "function 1",
+        "func": "const project = flow.get(\"project\");\n\nmsg.payload = project;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 300,
+        "wires": [
+            [
+                "391c9cc599ef228d",
+                "5dcb4e833fa556ba"
+            ]
+        ]
+    },
+    {
+        "id": "391c9cc599ef228d",
+        "type": "http response",
+        "z": "6095813f1011d415",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 510,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "5dcb4e833fa556ba",
+        "type": "debug",
+        "z": "6095813f1011d415",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "0fb0e5f4098a7ba7",
+        "type": "debug",
+        "z": "6095813f1011d415",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "cdde1583ba627127",
+        "type": "function",
+        "z": "6095813f1011d415",
+        "name": "function 2",
+        "func": "msg.payload = {\n    \"team\": \"Team00\",\n    \"project\": \"Project title\"\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 480,
+        "wires": [
+            [
+                "5a13739bc6fc3721"
+            ]
+        ]
+    },
+    {
+        "id": "fa76b5545d652e3b",
+        "type": "comment",
+        "z": "6095813f1011d415",
+        "name": "Server",
+        "info": "",
+        "x": 130,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "b7849790e9ba39e6",
+        "type": "comment",
+        "z": "6095813f1011d415",
+        "name": "Client",
+        "info": "",
+        "x": 130,
+        "y": 420,
+        "wires": []
+    }
+]
