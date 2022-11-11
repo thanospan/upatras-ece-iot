@@ -1,0 +1,820 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Hello, World!",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "697c3f13b340465c",
+        "type": "tab",
+        "label": "Device Simulator",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3f1c9a96ba7cb235",
+        "type": "tab",
+        "label": "Device Location",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4b1fec9da1d54962",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "tls": "",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "253a510834737cf4",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Publish",
+        "info": "",
+        "x": 130,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "48295d2e56536f2d",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Hello, World!",
+        "payloadType": "str",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            [
+                "83bfc8386e93bd1d"
+            ]
+        ]
+    },
+    {
+        "id": "83bfc8386e93bd1d",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "upatras-ece-iot",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4b1fec9da1d54962",
+        "x": 360,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "19cbd7d48e5b6521",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Subscribe",
+        "info": "",
+        "x": 140,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "0672d1b49c376a33",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "topic": "upatras-ece-iot",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "4b1fec9da1d54962",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 340,
+        "wires": [
+            [
+                "16d9f01752861ff5"
+            ]
+        ]
+    },
+    {
+        "id": "16d9f01752861ff5",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "9667c7dfce8b4724",
+        "type": "comment",
+        "z": "697c3f13b340465c",
+        "name": "Publish",
+        "info": "",
+        "x": 130,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "c221e3a9d74ed966",
+        "type": "inject",
+        "z": "697c3f13b340465c",
+        "name": "Device",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "187d640513d0b2b2"
+            ]
+        ]
+    },
+    {
+        "id": "187d640513d0b2b2",
+        "type": "function",
+        "z": "697c3f13b340465c",
+        "name": "payload",
+        "func": "function getRandomIntInclusive(min, max) {\n    min = Math.ceil(min);\n    max = Math.floor(max);\n    return Math.floor(Math.random() * (max - min + 1) + min);\n}\n\nfunction getDate() {\n    return new Date().toLocaleDateString('en-GB', { timeZone: 'Europe/Athens' });\n}\n\nfunction getTime() {\n    return new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/Athens' });\n}\n\nfunction getRandomCoords(center, radius) {\n    const radiusInDeg = (radius / 111320);\n\n    const r = radiusInDeg * Math.sqrt(Math.random());\n    const t = 2 * Math.PI * Math.random();\n\n    const lat = r * Math.sin(t);\n    const long = (r * Math.cos(t)) / Math.cos(center.lat * Math.PI / 180);\n\n    return { latitude: +(center.lat + lat).toFixed(6), longitude: +(center.long + long).toFixed(6) };\n}\n\nmsg.payload = {\n    \"name\": \"Device\",\n    \"id\": \"636d4da978963500800d0e5d\",\n    \"description\": \"Information about the device\",\n    \"data\": {\n        \"temperature\": getRandomIntInclusive(-10, 40),\n        \"humidity\": getRandomIntInclusive(30, 95),\n        \"location\": getRandomCoords({ lat: 38.241997, long: 21.742386 }, 2000),\n        \"date\": getDate(),\n        \"time\": getTime()\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 180,
+        "wires": [
+            [
+                "e37a36245d8f621d",
+                "bd77e205ecc6e7f2",
+                "df7b1ad2ff03aef5",
+                "519b4d6aaebbb4d9"
+            ]
+        ]
+    },
+    {
+        "id": "d16b322127693eee",
+        "type": "comment",
+        "z": "697c3f13b340465c",
+        "name": "Subscribe",
+        "info": "",
+        "x": 140,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "d6518e53aab6660a",
+        "type": "mqtt in",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/1",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "4b1fec9da1d54962",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 400,
+        "wires": [
+            [
+                "269612947827ed12"
+            ]
+        ]
+    },
+    {
+        "id": "7923e81f24dbe606",
+        "type": "mqtt in",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/1/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "4b1fec9da1d54962",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 460,
+        "wires": [
+            [
+                "f1b750597eaeb907"
+            ]
+        ]
+    },
+    {
+        "id": "ec1c76ddcaf2f624",
+        "type": "mqtt in",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/1/location",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "4b1fec9da1d54962",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 520,
+        "wires": [
+            [
+                "1ddcec2b50576c47"
+            ]
+        ]
+    },
+    {
+        "id": "3ee4dfb2ef42bac7",
+        "type": "mqtt in",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/1/env/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "4b1fec9da1d54962",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 580,
+        "wires": [
+            [
+                "bd76969195338da5"
+            ]
+        ]
+    },
+    {
+        "id": "5b75bb9ddb1d3d9b",
+        "type": "mqtt in",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/1/env/temperature",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "4b1fec9da1d54962",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 640,
+        "wires": [
+            [
+                "1cd49fb058b9d80e"
+            ]
+        ]
+    },
+    {
+        "id": "1592a6da564c52d2",
+        "type": "mqtt in",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/1/env/humidity",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "4b1fec9da1d54962",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 700,
+        "wires": [
+            [
+                "2696e7b7025b6601"
+            ]
+        ]
+    },
+    {
+        "id": "269612947827ed12",
+        "type": "debug",
+        "z": "697c3f13b340465c",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f1b750597eaeb907",
+        "type": "debug",
+        "z": "697c3f13b340465c",
+        "name": "debug 3",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "1ddcec2b50576c47",
+        "type": "debug",
+        "z": "697c3f13b340465c",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "bd76969195338da5",
+        "type": "debug",
+        "z": "697c3f13b340465c",
+        "name": "debug 5",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "1cd49fb058b9d80e",
+        "type": "debug",
+        "z": "697c3f13b340465c",
+        "name": "debug 6",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "2696e7b7025b6601",
+        "type": "debug",
+        "z": "697c3f13b340465c",
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "798037b184cb9112",
+        "type": "mqtt in",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "4b1fec9da1d54962",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 800,
+        "wires": [
+            [
+                "1a195c54d4f97107"
+            ]
+        ]
+    },
+    {
+        "id": "1a195c54d4f97107",
+        "type": "debug",
+        "z": "697c3f13b340465c",
+        "name": "debug 8",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "1635746626a63094",
+        "type": "mqtt in",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/+/location",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "4b1fec9da1d54962",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 860,
+        "wires": [
+            [
+                "f6f4c0c8633b425d"
+            ]
+        ]
+    },
+    {
+        "id": "f6f4c0c8633b425d",
+        "type": "debug",
+        "z": "697c3f13b340465c",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "e37a36245d8f621d",
+        "type": "function",
+        "z": "697c3f13b340465c",
+        "name": "temperature",
+        "func": "msg.payload = msg.payload.data.temperature;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 550,
+        "y": 120,
+        "wires": [
+            [
+                "55c282d4bd31bdf1"
+            ]
+        ]
+    },
+    {
+        "id": "bd77e205ecc6e7f2",
+        "type": "function",
+        "z": "697c3f13b340465c",
+        "name": "humidity",
+        "func": "msg.payload = msg.payload.data.humidity;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 180,
+        "wires": [
+            [
+                "fa00ddec8c7cb4c3"
+            ]
+        ]
+    },
+    {
+        "id": "df7b1ad2ff03aef5",
+        "type": "function",
+        "z": "697c3f13b340465c",
+        "name": "location",
+        "func": "msg.payload = msg.payload.data.location;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 240,
+        "wires": [
+            [
+                "3c00109d4d4410cd"
+            ]
+        ]
+    },
+    {
+        "id": "55c282d4bd31bdf1",
+        "type": "mqtt out",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/1/env/temperature",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4b1fec9da1d54962",
+        "x": 790,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "fa00ddec8c7cb4c3",
+        "type": "mqtt out",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/1/env/humidity",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4b1fec9da1d54962",
+        "x": 780,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "3c00109d4d4410cd",
+        "type": "mqtt out",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/1/location",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4b1fec9da1d54962",
+        "x": 770,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "519b4d6aaebbb4d9",
+        "type": "mqtt out",
+        "z": "697c3f13b340465c",
+        "name": "",
+        "topic": "device/1",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4b1fec9da1d54962",
+        "x": 540,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "d35f953cc07c01fc",
+        "type": "comment",
+        "z": "3f1c9a96ba7cb235",
+        "name": "Publish",
+        "info": "",
+        "x": 130,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "88c11a78b828d89d",
+        "type": "inject",
+        "z": "3f1c9a96ba7cb235",
+        "name": "Device",
+        "props": [],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 140,
+        "y": 160,
+        "wires": [
+            [
+                "4ed22b9c5bdafb2f"
+            ]
+        ]
+    },
+    {
+        "id": "4ed22b9c5bdafb2f",
+        "type": "function",
+        "z": "3f1c9a96ba7cb235",
+        "name": "payload",
+        "func": "function getRandomIntInclusive(min, max) {\n    min = Math.ceil(min);\n    max = Math.floor(max);\n    return Math.floor(Math.random() * (max - min + 1) + min);\n}\n\nfunction getDate() {\n    return new Date().toLocaleDateString('en-GB', { timeZone: 'Europe/Athens' });\n}\n\nfunction getTime() {\n    return new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/Athens' });\n}\n\nfunction getRandomCoords(center, radius) {\n    const radiusInDeg = (radius / 111320);\n\n    const r = radiusInDeg * Math.sqrt(Math.random());\n    const t = 2 * Math.PI * Math.random();\n\n    const lat = r * Math.sin(t);\n    const long = (r * Math.cos(t)) / Math.cos(center.lat * Math.PI / 180);\n\n    return { latitude: +(center.lat + lat).toFixed(6), longitude: +(center.long + long).toFixed(6) };\n}\n\nmsg.payload = {\n    \"name\": \"Device\",\n    \"id\": \"636d4da978963500800d0e5d\",\n    \"description\": \"Information about the device\",\n    \"data\": {\n        \"temperature\": getRandomIntInclusive(-10, 40),\n        \"humidity\": getRandomIntInclusive(30, 95),\n        \"location\": getRandomCoords({ lat: 38.241997, long: 21.742386 }, 2000),\n        \"date\": getDate(),\n        \"time\": getTime()\n    }\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 160,
+        "wires": [
+            [
+                "335f5a45a5d8f50e"
+            ]
+        ]
+    },
+    {
+        "id": "335f5a45a5d8f50e",
+        "type": "mqtt out",
+        "z": "3f1c9a96ba7cb235",
+        "name": "",
+        "topic": "device/636d63da1773e67e52d9ade7/location",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4b1fec9da1d54962",
+        "x": 610,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "2e8c28da4c533527",
+        "type": "comment",
+        "z": "3f1c9a96ba7cb235",
+        "name": "Subscribe",
+        "info": "",
+        "x": 140,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "66f779fe9c2292d1",
+        "type": "function",
+        "z": "3f1c9a96ba7cb235",
+        "name": "function 1",
+        "func": "msg.payload = {\n    \"name\": msg.payload.name,\n    \"lat\": msg.payload.data.location.latitude,\n    \"lon\": msg.payload.data.location.longitude\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 340,
+        "wires": [
+            [
+                "15e9c7f503f54842",
+                "205ab466d352e005"
+            ]
+        ]
+    },
+    {
+        "id": "3d8f3d1f38a76548",
+        "type": "mqtt in",
+        "z": "3f1c9a96ba7cb235",
+        "name": "",
+        "topic": "device/636d63da1773e67e52d9ade7/location",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "4b1fec9da1d54962",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 340,
+        "wires": [
+            [
+                "66f779fe9c2292d1"
+            ]
+        ]
+    },
+    {
+        "id": "15e9c7f503f54842",
+        "type": "worldmap-tracks",
+        "z": "3f1c9a96ba7cb235",
+        "name": "",
+        "depth": "36000",
+        "layer": "combined",
+        "smooth": false,
+        "x": 710,
+        "y": 340,
+        "wires": [
+            [
+                "a06341366af9b3c8"
+            ]
+        ]
+    },
+    {
+        "id": "a06341366af9b3c8",
+        "type": "worldmap",
+        "z": "3f1c9a96ba7cb235",
+        "name": "",
+        "lat": "38.241997",
+        "lon": "21.742386",
+        "zoom": "14",
+        "layer": "OSMC",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "false",
+        "showruler": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "overlist": "",
+        "maplist": "OSMC",
+        "mapname": "",
+        "mapurl": "",
+        "mapopt": "",
+        "mapwms": false,
+        "x": 880,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "205ab466d352e005",
+        "type": "debug",
+        "z": "3f1c9a96ba7cb235",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 280,
+        "wires": []
+    }
+]
