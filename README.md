@@ -17,3 +17,9 @@ Orion Context Broker: http://localhost:1026/v2
 MongoDB: localhost:27017
 Mosquitto MQTT Broker: localhost:1883
 ```
+
+## Setup
+- Visit http://localhost:1880
+- Press `alt+shift+p`, switch to the `Install` tab and install the `node-red-contrib-web-worldmap` module.
+- Copy the Node-RED flows provided in the `node-red` directory.
+- Press `ctrl+i` and paste the JSON in order to import the flows.
