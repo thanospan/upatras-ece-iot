@@ -23,3 +23,8 @@ Mosquitto MQTT Broker: localhost:1883
 - Press `alt+shift+p`, switch to the `Install` tab and install the `node-red-contrib-web-worldmap` module.
 - Copy the Node-RED flows provided in the `node-red` directory.
 - Press `ctrl+i` and paste the JSON in order to import the flows.
+
+## Additional resources
+- [Node-RED security](https://nodered.org/docs/user-guide/runtime/securing-node-red)
+- [Mosquitto authentication](https://mosquitto.org/documentation/authentication-methods/)
+- [MongoDB authentication](https://www.mongodb.com/docs/manual/core/authentication/)
