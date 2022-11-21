@@ -1,0 +1,659 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "FIWARE - NGSI v2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "8eee5eadfbfefb78",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "659a342aed4e2233"
+            ]
+        ]
+    },
+    {
+        "id": "659a342aed4e2233",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "GET /v2",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 320,
+        "y": 140,
+        "wires": [
+            [
+                "7fc735951fcbdc20"
+            ]
+        ]
+    },
+    {
+        "id": "7fc735951fcbdc20",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 500,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "4b5e3cb4aa3f71e3",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": " Retrieve API resources",
+        "info": "",
+        "x": 180,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "03f903b59dc56812",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "List entities",
+        "info": "",
+        "x": 140,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "71e67b9fd6544652",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "bb250e74de0d78db"
+            ]
+        ]
+    },
+    {
+        "id": "bb250e74de0d78db",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "GET /v2/entities",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/entities",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 340,
+        "y": 280,
+        "wires": [
+            [
+                "73c0c1ccc03fce53"
+            ]
+        ]
+    },
+    {
+        "id": "73c0c1ccc03fce53",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "b9c2546ad49044fd",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Create entity",
+        "info": "",
+        "x": 150,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "ad8cb5351b436289",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"type\":\"Room\",\"id\":\"Bcn-Welt\",\"temperature\":{\"value\":21.7},\"humidity\":{\"value\":60},\"location\":{\"value\":\"41.3763726, 2.1864475\",\"type\":\"geo:point\",\"metadata\":{\"crs\":{\"value\":\"WGS84\"}}}}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 380,
+        "wires": [
+            [
+                "7ffc6b0f58c30719"
+            ]
+        ]
+    },
+    {
+        "id": "7ffc6b0f58c30719",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "POST /v2/entities",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/entities",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 350,
+        "y": 380,
+        "wires": [
+            [
+                "bed6bf43180061e6"
+            ]
+        ]
+    },
+    {
+        "id": "bed6bf43180061e6",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "46164ec28ec0d5ee",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Retrieve entity by ID",
+        "info": "",
+        "x": 170,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "ab457ffe2b380897",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 480,
+        "wires": [
+            [
+                "dcd1ef2c56a3c0bb"
+            ]
+        ]
+    },
+    {
+        "id": "dcd1ef2c56a3c0bb",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "GET /v2/entities/{entityId}",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/entities/Bcn-Welt",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 370,
+        "y": 480,
+        "wires": [
+            [
+                "928c11c0df34c828"
+            ]
+        ]
+    },
+    {
+        "id": "928c11c0df34c828",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "f99defe7a3fe970d",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Retrieve entity attributes",
+        "info": "",
+        "x": 190,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "47704241990735a3",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 580,
+        "wires": [
+            [
+                "2a496cf56b31dae6"
+            ]
+        ]
+    },
+    {
+        "id": "2a496cf56b31dae6",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "GET /v2/entities/{entityId}/attrs",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/entities/Bcn-Welt/attrs",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 390,
+        "y": 580,
+        "wires": [
+            [
+                "1639ddb347cb6c0d"
+            ]
+        ]
+    },
+    {
+        "id": "1639ddb347cb6c0d",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "e25b4c6faac1577b",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Update or append entity attributes",
+        "info": "",
+        "x": 220,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "be8fd1af583462ce",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"ambientNoise\":{\"value\":31.5}}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 680,
+        "wires": [
+            [
+                "0d5ebabafad2f9d3"
+            ]
+        ]
+    },
+    {
+        "id": "0d5ebabafad2f9d3",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "POST /v2/entities/{entityId}/attrs",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/entities/Bcn-Welt/attrs",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 390,
+        "y": 680,
+        "wires": [
+            [
+                "04a102f646e92758"
+            ]
+        ]
+    },
+    {
+        "id": "04a102f646e92758",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "aff551f6ead6db7d",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Replace all entity attributes",
+        "info": "",
+        "x": 190,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "fb7a89f33439b26f",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\":{\"value\":25.5},\"seatNumber\":{\"value\":6}}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 780,
+        "wires": [
+            [
+                "99fec80b6315f1d2"
+            ]
+        ]
+    },
+    {
+        "id": "99fec80b6315f1d2",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "PUT /v2/entities/{entityId}/attrs",
+        "method": "PUT",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/entities/Bcn-Welt/attrs",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 390,
+        "y": 780,
+        "wires": [
+            [
+                "3a2c08095ca3130d"
+            ]
+        ]
+    },
+    {
+        "id": "3a2c08095ca3130d",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "c85989229a387634",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Remove entity",
+        "info": "",
+        "x": 150,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "895597dafbf5786e",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 980,
+        "wires": [
+            [
+                "f72595bce21982a9"
+            ]
+        ]
+    },
+    {
+        "id": "f72595bce21982a9",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "DELETE /v2/entities/{entityId}",
+        "method": "DELETE",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/entities/Bcn-Welt",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 390,
+        "y": 980,
+        "wires": [
+            [
+                "07270ee53cb2a29f"
+            ]
+        ]
+    },
+    {
+        "id": "07270ee53cb2a29f",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "eebfee6288731502",
+        "type": "comment",
+        "z": "f6f2187d.f17ca8",
+        "name": "Update existing entity attributes",
+        "info": "",
+        "x": 210,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "e8cd249ff54e85fb",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "method",
+                "v": "PATCH",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"temperature\":{\"value\":25.5},\"seatNumber\":{\"value\":6}}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 880,
+        "wires": [
+            [
+                "13968d40fab21028"
+            ]
+        ]
+    },
+    {
+        "id": "13968d40fab21028",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "PATCH /v2/entities/{entityId}/attrs",
+        "method": "use",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://orion:1026/v2/entities/Bcn-Welt/attrs",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 400,
+        "y": 880,
+        "wires": [
+            [
+                "97f6f67196f5c7e3"
+            ]
+        ]
+    },
+    {
+        "id": "97f6f67196f5c7e3",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 880,
+        "wires": []
+    }
+]
