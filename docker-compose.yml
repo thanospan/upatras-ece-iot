@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  mongo:
+    image: mongo:4.4.18
+    container_name: upatras-ece-iot_mongo
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    command: --nojournal
+    volumes:
+      - mongo-db:/data/db
+      - mongo-config:/data/configdb
+  orion:
+    image: fiware/orion:3.7.0
+    container_name: upatras-ece-iot_orion
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    ports:
+      - 1026:1026
+    command: -dbhost mongo
+  mosquitto:
+    image: eclipse-mosquitto:2.0.15
+    container_name: upatras-ece-iot_mosquitto
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+    volumes:
+      - ./config/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto-data:/mosquitto/data
+      - mosquitto-log:/mosquitto/log
+  node-red:
+    image: nodered/node-red:3.0.2
+    container_name: upatras-ece-iot_node-red
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Athens
+    ports:
+      - 1880:1880
+    volumes:
+      - node-red-data:/data
+
+volumes:
+  mongo-db:
+    name: upatras-ece-iot_mongo-db
+  mongo-config:
+    name: upatras-ece-iot_mongo-config
+  mosquitto-data:
+    name: upatras-ece-iot_mosquitto-data
+  mosquitto-log:
+    name: upatras-ece-iot_mosquitto-log
+  node-red-data:
+    name: upatras-ece-iot_node-red-data
+
+networks:
+  default:
+    name: upatras-ece-iot
