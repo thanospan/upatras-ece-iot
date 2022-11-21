@@ -1,13 +1,13 @@
 [
     {
-        "id": "f6f2187d.f17ca8",
+        "id": "b4be357e76808034",
         "type": "tab",
         "label": "Hello, World!",
         "disabled": false,
         "info": ""
     },
     {
-        "id": "697c3f13b340465c",
+        "id": "6a2892f3a5238df2",
         "type": "tab",
         "label": "Device Simulator",
         "disabled": false,
@@ -15,7 +15,7 @@
         "env": []
     },
     {
-        "id": "3f1c9a96ba7cb235",
+        "id": "35913bd898ddc0ce",
         "type": "tab",
         "label": "Device Location",
         "disabled": false,
@@ -23,10 +23,10 @@
         "env": []
     },
     {
-        "id": "4b1fec9da1d54962",
+        "id": "63725a9c843a509a",
         "type": "mqtt-broker",
         "name": "",
-        "broker": "test.mosquitto.org",
+        "broker": "mosquitto",
         "port": "1883",
         "tls": "",
         "clientid": "",
@@ -51,9 +51,9 @@
         "sessionExpiry": ""
     },
     {
-        "id": "253a510834737cf4",
+        "id": "04171cf5dabf8df4",
         "type": "comment",
-        "z": "f6f2187d.f17ca8",
+        "z": "b4be357e76808034",
         "name": "Publish",
         "info": "",
         "x": 130,
@@ -61,9 +61,9 @@
         "wires": []
     },
     {
-        "id": "48295d2e56536f2d",
+        "id": "19493b427d8482de",
         "type": "inject",
-        "z": "f6f2187d.f17ca8",
+        "z": "b4be357e76808034",
         "name": "",
         "props": [
             {
@@ -81,14 +81,14 @@
         "y": 160,
         "wires": [
             [
-                "83bfc8386e93bd1d"
+                "dad12ce4d44a7fac"
             ]
         ]
     },
     {
-        "id": "83bfc8386e93bd1d",
+        "id": "dad12ce4d44a7fac",
         "type": "mqtt out",
-        "z": "f6f2187d.f17ca8",
+        "z": "b4be357e76808034",
         "name": "",
         "topic": "upatras-ece-iot",
         "qos": "0",
@@ -98,15 +98,15 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "x": 360,
         "y": 160,
         "wires": []
     },
     {
-        "id": "19cbd7d48e5b6521",
+        "id": "102310d233c13562",
         "type": "comment",
-        "z": "f6f2187d.f17ca8",
+        "z": "b4be357e76808034",
         "name": "Subscribe",
         "info": "",
         "x": 140,
@@ -114,14 +114,14 @@
         "wires": []
     },
     {
-        "id": "0672d1b49c376a33",
+        "id": "a3c909fde62db20d",
         "type": "mqtt in",
-        "z": "f6f2187d.f17ca8",
+        "z": "b4be357e76808034",
         "name": "",
         "topic": "upatras-ece-iot",
         "qos": "0",
         "datatype": "auto-detect",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -130,14 +130,14 @@
         "y": 340,
         "wires": [
             [
-                "16d9f01752861ff5"
+                "474ef264b37a4b6d"
             ]
         ]
     },
     {
-        "id": "16d9f01752861ff5",
+        "id": "474ef264b37a4b6d",
         "type": "debug",
-        "z": "f6f2187d.f17ca8",
+        "z": "b4be357e76808034",
         "name": "debug 1",
         "active": true,
         "tosidebar": true,
@@ -151,9 +151,9 @@
         "wires": []
     },
     {
-        "id": "9667c7dfce8b4724",
+        "id": "7653b45af15ef072",
         "type": "comment",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "Publish",
         "info": "",
         "x": 130,
@@ -161,9 +161,9 @@
         "wires": []
     },
     {
-        "id": "c221e3a9d74ed966",
+        "id": "80268456b5c5aae9",
         "type": "inject",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "Device",
         "props": [],
         "repeat": "",
@@ -175,14 +175,14 @@
         "y": 180,
         "wires": [
             [
-                "187d640513d0b2b2"
+                "76c17683818a87cf"
             ]
         ]
     },
     {
-        "id": "187d640513d0b2b2",
+        "id": "76c17683818a87cf",
         "type": "function",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "payload",
         "func": "function getRandomIntInclusive(min, max) {\n    min = Math.ceil(min);\n    max = Math.floor(max);\n    return Math.floor(Math.random() * (max - min + 1) + min);\n}\n\nfunction getDate() {\n    return new Date().toLocaleDateString('en-GB', { timeZone: 'Europe/Athens' });\n}\n\nfunction getTime() {\n    return new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/Athens' });\n}\n\nfunction getRandomCoords(center, radius) {\n    const radiusInDeg = (radius / 111320);\n\n    const r = radiusInDeg * Math.sqrt(Math.random());\n    const t = 2 * Math.PI * Math.random();\n\n    const lat = r * Math.sin(t);\n    const long = (r * Math.cos(t)) / Math.cos(center.lat * Math.PI / 180);\n\n    return { latitude: +(center.lat + lat).toFixed(6), longitude: +(center.long + long).toFixed(6) };\n}\n\nmsg.payload = {\n    \"name\": \"Device\",\n    \"id\": \"636d4da978963500800d0e5d\",\n    \"description\": \"Information about the device\",\n    \"data\": {\n        \"temperature\": getRandomIntInclusive(-10, 40),\n        \"humidity\": getRandomIntInclusive(30, 95),\n        \"location\": getRandomCoords({ lat: 38.241997, long: 21.742386 }, 2000),\n        \"date\": getDate(),\n        \"time\": getTime()\n    }\n}\n\nreturn msg;",
         "outputs": 1,
@@ -194,17 +194,17 @@
         "y": 180,
         "wires": [
             [
-                "e37a36245d8f621d",
-                "bd77e205ecc6e7f2",
-                "df7b1ad2ff03aef5",
-                "519b4d6aaebbb4d9"
+                "aedbcf90087c41ac",
+                "1985543ef0b510ca",
+                "8ad7964ea54890e4",
+                "0785ceebc4b05103"
             ]
         ]
     },
     {
-        "id": "d16b322127693eee",
+        "id": "3735e249f90d3e9a",
         "type": "comment",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "Subscribe",
         "info": "",
         "x": 140,
@@ -212,14 +212,14 @@
         "wires": []
     },
     {
-        "id": "d6518e53aab6660a",
+        "id": "daa63583d3427099",
         "type": "mqtt in",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/1",
         "qos": "0",
         "datatype": "auto-detect",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -228,19 +228,19 @@
         "y": 400,
         "wires": [
             [
-                "269612947827ed12"
+                "c16f684da86b5f8d"
             ]
         ]
     },
     {
-        "id": "7923e81f24dbe606",
+        "id": "3554e313f89b69dd",
         "type": "mqtt in",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/1/#",
         "qos": "0",
         "datatype": "auto-detect",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -249,19 +249,19 @@
         "y": 460,
         "wires": [
             [
-                "f1b750597eaeb907"
+                "8cba054426f8afae"
             ]
         ]
     },
     {
-        "id": "ec1c76ddcaf2f624",
+        "id": "592c1c5f7d466245",
         "type": "mqtt in",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/1/location",
         "qos": "0",
         "datatype": "auto-detect",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -270,19 +270,19 @@
         "y": 520,
         "wires": [
             [
-                "1ddcec2b50576c47"
+                "f4b4bef06ad77d7e"
             ]
         ]
     },
     {
-        "id": "3ee4dfb2ef42bac7",
+        "id": "cce2d5e56bd8fd2b",
         "type": "mqtt in",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/1/env/#",
         "qos": "0",
         "datatype": "auto-detect",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -291,19 +291,19 @@
         "y": 580,
         "wires": [
             [
-                "bd76969195338da5"
+                "ce5c42d8a8dd6405"
             ]
         ]
     },
     {
-        "id": "5b75bb9ddb1d3d9b",
+        "id": "c2cffa09887c366e",
         "type": "mqtt in",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/1/env/temperature",
         "qos": "0",
         "datatype": "auto-detect",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -312,19 +312,19 @@
         "y": 640,
         "wires": [
             [
-                "1cd49fb058b9d80e"
+                "6d3d90d16cbe8429"
             ]
         ]
     },
     {
-        "id": "1592a6da564c52d2",
+        "id": "b3a24d4a3b491f4f",
         "type": "mqtt in",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/1/env/humidity",
         "qos": "0",
         "datatype": "auto-detect",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -333,14 +333,14 @@
         "y": 700,
         "wires": [
             [
-                "2696e7b7025b6601"
+                "49718c1f5a795601"
             ]
         ]
     },
     {
-        "id": "269612947827ed12",
+        "id": "c16f684da86b5f8d",
         "type": "debug",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "debug 2",
         "active": true,
         "tosidebar": true,
@@ -354,9 +354,9 @@
         "wires": []
     },
     {
-        "id": "f1b750597eaeb907",
+        "id": "8cba054426f8afae",
         "type": "debug",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "debug 3",
         "active": false,
         "tosidebar": true,
@@ -370,9 +370,9 @@
         "wires": []
     },
     {
-        "id": "1ddcec2b50576c47",
+        "id": "f4b4bef06ad77d7e",
         "type": "debug",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "debug 4",
         "active": false,
         "tosidebar": true,
@@ -386,9 +386,9 @@
         "wires": []
     },
     {
-        "id": "bd76969195338da5",
+        "id": "ce5c42d8a8dd6405",
         "type": "debug",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "debug 5",
         "active": false,
         "tosidebar": true,
@@ -402,9 +402,9 @@
         "wires": []
     },
     {
-        "id": "1cd49fb058b9d80e",
+        "id": "6d3d90d16cbe8429",
         "type": "debug",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "debug 6",
         "active": false,
         "tosidebar": true,
@@ -418,9 +418,9 @@
         "wires": []
     },
     {
-        "id": "2696e7b7025b6601",
+        "id": "49718c1f5a795601",
         "type": "debug",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "debug 7",
         "active": false,
         "tosidebar": true,
@@ -434,14 +434,14 @@
         "wires": []
     },
     {
-        "id": "798037b184cb9112",
+        "id": "aae0d7a16c2f7b55",
         "type": "mqtt in",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/#",
         "qos": "0",
         "datatype": "auto-detect",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -450,14 +450,14 @@
         "y": 800,
         "wires": [
             [
-                "1a195c54d4f97107"
+                "57e3946abf2a4df8"
             ]
         ]
     },
     {
-        "id": "1a195c54d4f97107",
+        "id": "57e3946abf2a4df8",
         "type": "debug",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "debug 8",
         "active": false,
         "tosidebar": true,
@@ -471,14 +471,14 @@
         "wires": []
     },
     {
-        "id": "1635746626a63094",
+        "id": "8ec40bb940d9140d",
         "type": "mqtt in",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/+/location",
         "qos": "0",
         "datatype": "auto-detect",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -487,14 +487,14 @@
         "y": 860,
         "wires": [
             [
-                "f6f4c0c8633b425d"
+                "016638af4e95f2c4"
             ]
         ]
     },
     {
-        "id": "f6f4c0c8633b425d",
+        "id": "016638af4e95f2c4",
         "type": "debug",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "debug 9",
         "active": false,
         "tosidebar": true,
@@ -508,9 +508,9 @@
         "wires": []
     },
     {
-        "id": "e37a36245d8f621d",
+        "id": "aedbcf90087c41ac",
         "type": "function",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "temperature",
         "func": "msg.payload = msg.payload.data.temperature;\n\nreturn msg;",
         "outputs": 1,
@@ -522,14 +522,14 @@
         "y": 120,
         "wires": [
             [
-                "55c282d4bd31bdf1"
+                "29d0f2a3c9cbeeda"
             ]
         ]
     },
     {
-        "id": "bd77e205ecc6e7f2",
+        "id": "1985543ef0b510ca",
         "type": "function",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "humidity",
         "func": "msg.payload = msg.payload.data.humidity;\n\nreturn msg;",
         "outputs": 1,
@@ -541,14 +541,14 @@
         "y": 180,
         "wires": [
             [
-                "fa00ddec8c7cb4c3"
+                "c25df1d7cb80461f"
             ]
         ]
     },
     {
-        "id": "df7b1ad2ff03aef5",
+        "id": "8ad7964ea54890e4",
         "type": "function",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "location",
         "func": "msg.payload = msg.payload.data.location;\n\nreturn msg;",
         "outputs": 1,
@@ -560,14 +560,14 @@
         "y": 240,
         "wires": [
             [
-                "3c00109d4d4410cd"
+                "2ec36d47619f03ec"
             ]
         ]
     },
     {
-        "id": "55c282d4bd31bdf1",
+        "id": "29d0f2a3c9cbeeda",
         "type": "mqtt out",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/1/env/temperature",
         "qos": "0",
@@ -577,15 +577,15 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "x": 790,
         "y": 120,
         "wires": []
     },
     {
-        "id": "fa00ddec8c7cb4c3",
+        "id": "c25df1d7cb80461f",
         "type": "mqtt out",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/1/env/humidity",
         "qos": "0",
@@ -595,15 +595,15 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "x": 780,
         "y": 180,
         "wires": []
     },
     {
-        "id": "3c00109d4d4410cd",
+        "id": "2ec36d47619f03ec",
         "type": "mqtt out",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/1/location",
         "qos": "0",
@@ -613,15 +613,15 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "x": 770,
         "y": 240,
         "wires": []
     },
     {
-        "id": "519b4d6aaebbb4d9",
+        "id": "0785ceebc4b05103",
         "type": "mqtt out",
-        "z": "697c3f13b340465c",
+        "z": "6a2892f3a5238df2",
         "name": "",
         "topic": "device/1",
         "qos": "0",
@@ -631,15 +631,15 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "x": 540,
         "y": 60,
         "wires": []
     },
     {
-        "id": "d35f953cc07c01fc",
+        "id": "3bfc24a85d1b4b53",
         "type": "comment",
-        "z": "3f1c9a96ba7cb235",
+        "z": "35913bd898ddc0ce",
         "name": "Publish",
         "info": "",
         "x": 130,
@@ -647,9 +647,9 @@
         "wires": []
     },
     {
-        "id": "88c11a78b828d89d",
+        "id": "b48ea31def467d51",
         "type": "inject",
-        "z": "3f1c9a96ba7cb235",
+        "z": "35913bd898ddc0ce",
         "name": "Device",
         "props": [],
         "repeat": "1",
@@ -661,14 +661,14 @@
         "y": 160,
         "wires": [
             [
-                "4ed22b9c5bdafb2f"
+                "68fa376daa8bf301"
             ]
         ]
     },
     {
-        "id": "4ed22b9c5bdafb2f",
+        "id": "68fa376daa8bf301",
         "type": "function",
-        "z": "3f1c9a96ba7cb235",
+        "z": "35913bd898ddc0ce",
         "name": "payload",
         "func": "function getRandomIntInclusive(min, max) {\n    min = Math.ceil(min);\n    max = Math.floor(max);\n    return Math.floor(Math.random() * (max - min + 1) + min);\n}\n\nfunction getDate() {\n    return new Date().toLocaleDateString('en-GB', { timeZone: 'Europe/Athens' });\n}\n\nfunction getTime() {\n    return new Date().toLocaleTimeString('en-GB', { timeZone: 'Europe/Athens' });\n}\n\nfunction getRandomCoords(center, radius) {\n    const radiusInDeg = (radius / 111320);\n\n    const r = radiusInDeg * Math.sqrt(Math.random());\n    const t = 2 * Math.PI * Math.random();\n\n    const lat = r * Math.sin(t);\n    const long = (r * Math.cos(t)) / Math.cos(center.lat * Math.PI / 180);\n\n    return { latitude: +(center.lat + lat).toFixed(6), longitude: +(center.long + long).toFixed(6) };\n}\n\nmsg.payload = {\n    \"name\": \"Device\",\n    \"id\": \"636d4da978963500800d0e5d\",\n    \"description\": \"Information about the device\",\n    \"data\": {\n        \"temperature\": getRandomIntInclusive(-10, 40),\n        \"humidity\": getRandomIntInclusive(30, 95),\n        \"location\": getRandomCoords({ lat: 38.241997, long: 21.742386 }, 2000),\n        \"date\": getDate(),\n        \"time\": getTime()\n    }\n}\n\nreturn msg;",
         "outputs": 1,
@@ -680,14 +680,14 @@
         "y": 160,
         "wires": [
             [
-                "335f5a45a5d8f50e"
+                "734a0d0d8c8ec9c8"
             ]
         ]
     },
     {
-        "id": "335f5a45a5d8f50e",
+        "id": "734a0d0d8c8ec9c8",
         "type": "mqtt out",
-        "z": "3f1c9a96ba7cb235",
+        "z": "35913bd898ddc0ce",
         "name": "",
         "topic": "device/636d63da1773e67e52d9ade7/location",
         "qos": "0",
@@ -697,15 +697,15 @@
         "userProps": "",
         "correl": "",
         "expiry": "",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "x": 610,
         "y": 160,
         "wires": []
     },
     {
-        "id": "2e8c28da4c533527",
+        "id": "4f396157862c458a",
         "type": "comment",
-        "z": "3f1c9a96ba7cb235",
+        "z": "35913bd898ddc0ce",
         "name": "Subscribe",
         "info": "",
         "x": 140,
@@ -713,9 +713,9 @@
         "wires": []
     },
     {
-        "id": "66f779fe9c2292d1",
+        "id": "44f6ab9d1f58113a",
         "type": "function",
-        "z": "3f1c9a96ba7cb235",
+        "z": "35913bd898ddc0ce",
         "name": "function 1",
         "func": "msg.payload = {\n    \"name\": msg.payload.name,\n    \"lat\": msg.payload.data.location.latitude,\n    \"lon\": msg.payload.data.location.longitude\n}\n\nreturn msg;",
         "outputs": 1,
@@ -727,20 +727,20 @@
         "y": 340,
         "wires": [
             [
-                "15e9c7f503f54842",
-                "205ab466d352e005"
+                "b9d24ef02d9a749d",
+                "126446d1c5c3b924"
             ]
         ]
     },
     {
-        "id": "3d8f3d1f38a76548",
+        "id": "f808e0f13520b595",
         "type": "mqtt in",
-        "z": "3f1c9a96ba7cb235",
+        "z": "35913bd898ddc0ce",
         "name": "",
         "topic": "device/636d63da1773e67e52d9ade7/location",
         "qos": "0",
         "datatype": "auto-detect",
-        "broker": "4b1fec9da1d54962",
+        "broker": "63725a9c843a509a",
         "nl": false,
         "rap": true,
         "rh": 0,
@@ -749,30 +749,30 @@
         "y": 340,
         "wires": [
             [
-                "66f779fe9c2292d1"
+                "44f6ab9d1f58113a"
             ]
         ]
     },
     {
-        "id": "15e9c7f503f54842",
-        "type": "worldmap-tracks",
-        "z": "3f1c9a96ba7cb235",
-        "name": "",
-        "depth": "36000",
-        "layer": "combined",
-        "smooth": false,
-        "x": 710,
-        "y": 340,
-        "wires": [
-            [
-                "a06341366af9b3c8"
-            ]
-        ]
+        "id": "126446d1c5c3b924",
+        "type": "debug",
+        "z": "35913bd898ddc0ce",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 280,
+        "wires": []
     },
     {
-        "id": "a06341366af9b3c8",
+        "id": "fc45ab1764f60e8f",
         "type": "worldmap",
-        "z": "3f1c9a96ba7cb235",
+        "z": "35913bd898ddc0ce",
         "name": "",
         "lat": "38.241997",
         "lon": "21.742386",
@@ -802,19 +802,19 @@
         "wires": []
     },
     {
-        "id": "205ab466d352e005",
-        "type": "debug",
-        "z": "3f1c9a96ba7cb235",
-        "name": "debug 10",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 720,
-        "y": 280,
-        "wires": []
+        "id": "b9d24ef02d9a749d",
+        "type": "worldmap-tracks",
+        "z": "35913bd898ddc0ce",
+        "name": "",
+        "depth": "36000",
+        "layer": "combined",
+        "smooth": false,
+        "x": 710,
+        "y": 340,
+        "wires": [
+            [
+                "fc45ab1764f60e8f"
+            ]
+        ]
     }
 ]
